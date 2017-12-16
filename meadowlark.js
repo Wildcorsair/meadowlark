@@ -1,3 +1,4 @@
+var fortune = require('./lib/fortune');
 var express = require('express');
 
 var app = express();
@@ -9,12 +10,14 @@ app.set('view engine', 'handlebars');
 
 app.set('port', process.env.PORT || 8080);
 
+app.use(express.static(__dirname + '/public'));
+
 app.get('/', function(req, res) {
 	res.render('home');
 });
 
 app.get('/about', function(req, res) {
-	res.render('about');
+	res.render('about', {fortune: fortune.getFortune()});
 });
 
 //Page - 404
